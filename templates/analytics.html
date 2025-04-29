@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>📊 Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f4f9f4;
+            padding: 40px;
+            max-width: 1000px;
+            margin: auto;
+            color: #333;
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        nav a {
+            margin: 0 20px;
+            color: #2f6e4f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #2f6e4f;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            max-width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">➕ Nieuw café</a> |
+        <a href="/cafes">📋 Overzicht</a> |
+        <a href="/analytics">📊 Grafiek</a> |
+        <a href="/dashboard">📦 Alles-in-één</a>
+    </nav>
+
+    <section id="grafiek">
+        <h2>💸 Totaal besteed per week</h2>
+        <canvas id="analyticsChart" height="100"></canvas>
+    </section>
+
+    <section id="grafiek2">
+        <h2>👣 Aantal bezoeken per week</h2>
+        <canvas id="visitsChart" height="100"></canvas>
+    </section>
+
+    <script>
+        const weekLabels = {{ weeks | safe }};
+        const weekTotals = {{ totals | safe }};
+        const weekVisits = {{ visits | safe }};
+        // Combineer weekLabels met weekVisits in 1 mooie label
+    const combinedLabels = weekLabels.map((weekLabel, index) => {
+    return `${weekLabel} (${weekVisits[index]}x)`;
+    });
+
+        const ctx = document.getElementById('analyticsChart').getContext('2d');
+        const analyticsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: combinedLabels,
+                datasets: [{
+                    label: 'Uitgaven (€)',
+                    data: weekTotals,
+                    backgroundColor: 'rgba(107, 207, 151, 0.6)',
+                    borderColor: 'rgba(107, 207, 151, 1)',
+                    borderWidth: 1,
+                    hoverBackgroundColor: 'rgba(107, 207, 151, 0.8)',
+                }]
+            },
+            options: {
+                responsive: true,
+                animation: {
+                    duration: 1500,
+                    easing: 'easeInOutQuad',
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 5,
+                            callback: function(value) { return '€' + value.toFixed(2); }
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(tooltipItem) {
+                                const index = tooltipItem.dataIndex;
+                                const euroBedrag = tooltipItem.raw.toFixed(2);
+                                const aantalBezoeken = weekVisits[index];
+                                return `€${euroBedrag} besteed - ${aantalBezoeken} bezoeken`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    
+<script>
+    const ctx2 = document.getElementById('visitsChart').getContext('2d');
+    const visitsChart = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+            labels: combinedLabels,  // We gebruiken dezelfde labels
+            datasets: [{
+                label: 'Aantal bezoeken',
+                data: weekVisits,  // DATA: aantal bezoeken
+                backgroundColor: 'rgba(255, 159, 64, 0.6)',  // Mooie oranje kleur
+                borderColor: 'rgba(255, 159, 64, 1)',
+                borderWidth: 1,
+                hoverBackgroundColor: 'rgba(255, 159, 64, 0.8)',
+            }]
+        },
+        options: {
+            responsive: true,
+            animation: {
+                duration: 1500,
+                easing: 'easeInOutQuad',
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 1,  // Mooie stapjes per 1 bezoek
+                        callback: function(value) { return value + 'x'; }  // Achter elk getal een "x"
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.raw + ' bezoeken';
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+
+
+
+</body>
+</html>
