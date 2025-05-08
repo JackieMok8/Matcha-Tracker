@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <title>Matcha Café Invoer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f4f9f4;
+            color: #333;
+            padding: 40px;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        nav {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        nav a {
+            margin: 0 10px;
+            color: #2f6e4f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        h2 {
+            color: #2f6e4f;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 4px;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #6fcf97;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #5bb87d;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/">➕ Nieuw café</a> |
+        <a href="/cafes">📋 Overzicht</a> |
+        <a href="/analytics">📊 Grafiek</a> |
+        <a href="/dashboard">📦 Alles-in-één</a>
+    </nav>
+
+    <h2>➕ Voeg een nieuw café toe</h2>
+<form id="form" action="/submit" method="POST">
+    <label>Naam café:
+        <input type="text" name="name" required>
+    </label>
+    <label>Stad:
+        <input type="text" name="city" required>
+    </label>
+    <label>Adres:
+        <input type="text" name="address">
+    </label>
+    <label>Bezoekdatum:
+        <input type="date" name="visiting_date" required>
+    </label>
+    <label>Wat heb je genomen:
+        <input type="text" name="order_taken">
+    </label>
+    <label>Prijs (€):
+        <input type="number" name="price" step="0.01">
+    </label>
+    <label>Rating (1-10):
+        <input type="number" name="rating" step="0.1" min="1" max="10">
+    </label>
+    <label>Opmerkingen:
+        <textarea name="notes" rows="3"></textarea>
+    </label>
+    <button type="submit">Toevoegen</button>
+</form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#form').submit(function(e) {
+            e.preventDefault();  // Voorkom het herladen van de pagina
+            $.ajax({
+                type: 'POST',
+                url: '/submit',  // Je submitroute
+                data: $(this).serialize(),  // Verzenden van alle formulierdata
+                success: function(response) {
+                    alert("Café succesvol toegevoegd!");  // Feedback voor de gebruiker
+                    $('#form')[0].reset();  // Reset het formulier
+                    location.reload();  // Vernieuw de pagina om de nieuwe gegevens te zien
+                },
+                error: function(error) {
+                    alert("Er ging iets mis!");
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
