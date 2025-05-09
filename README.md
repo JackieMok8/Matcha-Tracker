@@ -33,6 +33,7 @@ Een gebruiksvriendelijke webapplicatie om al je matcha café-bezoekjes bij te ho
    ```
 
 3. Installeer dependencies:
+
    ```bash
    pip install flask mysql-connector-python
    ```
