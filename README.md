@@ -69,7 +69,11 @@ pip install flask mysql-connector-python
 
 ## 📸 Screenshots
 
-*Optioneel: voeg hier een paar screenshots toe van je formulier, dashboard en grafieken.*
+![overzicht pic](https://github.com/user-attachments/assets/8286b44f-0771-4060-8d1f-a986270f41d2)
+![grafiek pic](https://github.com/user-attachments/assets/822fbfbc-07a9-462f-ac6e-e5ea2108c87f)
+![form pic](https://github.com/user-attachments/assets/09b41700-19cf-498d-bc26-63c18294c27d)
+![Alles-in-1-pic](https://github.com/user-attachments/assets/78b0f832-63e4-4cfb-b890-f5edd940693d)
+
 
 ## 📁 Bestandsoverzicht
 
@@ -83,7 +87,7 @@ pip install flask mysql-connector-python
 
 ## 📬 Contact
 
-Heb je feedback, vragen of wil je meedoen aan dit project?  
+Heb je feedback, of vragen?  
 Neem contact op via [co_mok@hotmail.com](mailto:co_mok@hotmail.com)
 
 ---
