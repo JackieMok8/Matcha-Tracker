@@ -29,10 +29,9 @@ Een gebruiksvriendelijke webapplicatie om al je matcha café-bezoekjes bij te ho
 2. Navigeer naar de projectmap:
    ```bash
    cd /pad/naar/jouw/projectmap/webform
-(Pas het pad aan afhankelijk van waar je de repository hebt opgeslagen)
-```
-
-```
+   (Pas het pad aan afhankelijk van waar je de repository hebt opgeslagen)
+   ```
+   
 3. Installeer dependencies:
 
 ```bash
