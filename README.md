@@ -31,12 +31,13 @@ Een gebruiksvriendelijke webapplicatie om al je matcha café-bezoekjes bij te ho
    cd /pad/naar/jouw/projectmap/webform
 (Pas het pad aan afhankelijk van waar je de repository hebt opgeslagen)
    ```
+```
 
 3. Installeer dependencies:
 
-   ```bash
-   pip install flask mysql-connector-python
-   ```
+```bash
+pip install flask mysql-connector-python
+```
 
 4. Zorg dat MySQL draait en maak de database aan:
 
